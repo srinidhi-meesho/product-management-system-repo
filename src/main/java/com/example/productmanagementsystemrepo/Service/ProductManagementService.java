@@ -1,7 +1,8 @@
 package com.example.productmanagementsystemrepo.Service;
 
-import com.example.productmanagementsystemrepo.Model.PriceUpdateRequests;
-import com.example.productmanagementsystemrepo.Repository.PriceUpdateRepository;
+import com.example.productmanagementsystemrepo.Requests.AdminPriceRequests.PriceRequest;
+import com.example.productmanagementsystemrepo.db.PriceDb;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -9,13 +10,14 @@ import java.util.List;
 
 @Service
 public class ProductManagementService {
-    private final PriceUpdateRepository priceUpdateRepository;
+    @Autowired
+    private final PriceDb priceDb;
 
-    public ProductManagementService(PriceUpdateRepository priceUpdateRepository) {
-        this.priceUpdateRepository = priceUpdateRepository;
+    public ProductManagementService(PriceDb priceDb) {
+        this.priceDb = priceDb;
     }
 
-    public List<PriceUpdateRequests> getAllPriceUpdateRequests(LocalDateTime twentyFourHoursBack, LocalDateTime now) {
-        return priceUpdateRepository.findByCreatedAtBetween(twentyFourHoursBack, now);
+    public List<PriceRequest> getAllPriceUpdateRequests(LocalDateTime twentyFourHoursBack, LocalDateTime now, Integer batchSize, Integer offset) {
+        return priceDb.priceUpdateRequests(twentyFourHoursBack, now, batchSize, offset);
     }
 }

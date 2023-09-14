@@ -12,14 +12,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "price_update_requests")
-public class PriceUpdateRequests {
+public class PriceUpdateRequest {
     @Id
     @GeneratedValue
     private int id;
     @Column(name = "product_id_list")
     private String productIdList;
     @Column(name = "delta")
-    private double delta;
+    private Double delta;
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")

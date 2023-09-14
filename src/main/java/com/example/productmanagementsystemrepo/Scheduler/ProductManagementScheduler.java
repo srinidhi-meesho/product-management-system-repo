@@ -1,6 +1,6 @@
 package com.example.productmanagementsystemrepo.Scheduler;
 
-import com.example.productmanagementsystemrepo.Model.PriceUpdateRequests;
+import com.example.productmanagementsystemrepo.Requests.AdminPriceRequests.PriceRequest;
 import com.example.productmanagementsystemrepo.Service.Kafka.PriceUpdateRequestsProducer;
 import com.example.productmanagementsystemrepo.Service.ProductManagementService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,29 +20,33 @@ public class ProductManagementScheduler {
     private final PriceUpdateRequestsProducer producer;
 
 
+
 //    private static final Logger logger  = LoggerFactory.getLogger(ProductManagementScheduler.class);
-    LocalDateTime now = LocalDateTime.now();
-    LocalDateTime twentyFourHoursBack = now.minusHours(24);
+
 
     public ProductManagementScheduler(ProductManagementService productManagementService, PriceUpdateRequestsProducer producer) {
         this.productManagementService = productManagementService;
         this.producer = producer;
     }
 
-    @Scheduled(cron = "0 0 7 * * ?")
+    @Scheduled(cron = "0 */33 * * * *")
     public void LatestPriceUpdate() {
         log.info("cron started");
-        List<PriceUpdateRequests> list = productManagementService.getAllPriceUpdateRequests(twentyFourHoursBack, now);
-        //logger.info("list: {}",list);
-        if(!list.isEmpty()) {
-            try {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime twentyFourHoursBack = now.minusHours(24);
+        List<PriceRequest> list;
+        int batchSize = 5;
+        int offset = 0;
+        do {
+            list = productManagementService.getAllPriceUpdateRequests(twentyFourHoursBack, now, batchSize, offset);
+            offset+=batchSize;
+            log.info("list size is: {}", list.size());
+            if (!list.isEmpty()) {
                 producer.sendPriceUpdateRequests(list);
-            }catch (Exception e) {
-//                logger.error("error occurred {}", e.getMessage());
-                log.error("error occurred {}", e.getMessage());
+            } else {
+                log.info("There are no price updates in last 24 hrs");
+                break;
             }
-        }else {
-            log.info("There are no price update requests in the last 24 hours");
-        }
+        } while (true);
     }
 }

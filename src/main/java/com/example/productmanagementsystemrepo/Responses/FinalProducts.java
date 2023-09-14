@@ -1,4 +1,4 @@
-package com.example.productmanagementsystemrepo.Dto;
+package com.example.productmanagementsystemrepo.Responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,22 +12,17 @@ import java.time.LocalDateTime;
 public class FinalProducts {
     private String productId;
 
-    private int supplierId;
+    private Integer supplierId;
 
     private String name;
 
     private String imageUrl;
 
-    private double price;
+    private Double price;
 
-    private int discount;
+    private Integer discount;
 
-    private String inventory;
+    private Integer inventory;
 
-    private LocalDateTime createdAt;
-
-    private  LocalDateTime updatedAt;
-
-    private double finalTransferPrice;
-
+    private Double finalTransferPrice;
 }

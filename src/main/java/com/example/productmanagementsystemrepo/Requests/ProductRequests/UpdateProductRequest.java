@@ -1,28 +1,16 @@
-package com.example.productmanagementsystemrepo.Model;
+package com.example.productmanagementsystemrepo.Requests.ProductRequests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.validation.constraints.*;
-import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "meesho_products")
-public class MeeshoProducts {
-    @Id
-    @NotNull(message = "productId is required")
-    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "productId can contain only alphanumeric characters and underscores")
-    @Column(name = "product_id")
-    private String productId;
-    @NotNull(message = "supplierId is required")
-    @Positive(message = "supplierId can't be negative")
-    @Column(name = "supplier_id")
-    private Integer supplierId;
+public class UpdateProductRequest {
     @NotNull(message = "name is required")
     @Pattern(regexp = "^[^\\s]+$", message = "Name should not contain spaces")
     @Column(name = "name")
@@ -44,20 +32,4 @@ public class MeeshoProducts {
     @Getter
     @Column(name = "inventory")
     private Integer inventory;
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-    @Column(name = "updated_at")
-    private  LocalDateTime updatedAt;
-
-
-    @PrePersist
-    public void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-    @PreUpdate
-    public void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
 }

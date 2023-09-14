@@ -1,7 +1,7 @@
 package com.example.productmanagementsystemrepo.Controller;
 
-import com.example.productmanagementsystemrepo.Dto.FinalMessage;
-import com.example.productmanagementsystemrepo.Dto.StringListReq;
+import com.example.productmanagementsystemrepo.Responses.FinalMessage;
+import com.example.productmanagementsystemrepo.Requests.AdminPriceRequests.ProductPriceUpdateRequest;
 import com.example.productmanagementsystemrepo.Service.PriceUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/v1/product")
+@RequestMapping("/v1/admin")
 public class PriceController {
     @Autowired
     private final PriceUpdateService priceUpdateService;
@@ -21,8 +23,8 @@ public class PriceController {
     }
 
 
-    @PostMapping("/addProductIdList")
-    public ResponseEntity<FinalMessage> addPriceUpdate(@RequestBody StringListReq req) {
+    @PostMapping("/update-price-request")
+    public ResponseEntity<FinalMessage> addPriceUpdate(@RequestBody @Valid ProductPriceUpdateRequest req) {
         return priceUpdateService.priceUpdate(req.getProductIdList(), req.getDelta());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.productmanagementsystemrepo.Dto;
+package com.example.productmanagementsystemrepo.Requests.AdminPriceRequests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +8,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StringListReq {
+public class ProductPriceUpdateRequest {
     private List<String > productIdList;
-    private double delta;
+    private Double delta;
 
 }
