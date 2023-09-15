@@ -30,7 +30,21 @@ public class PriceUpdateService {
 
     //private static final Logger logger  = LoggerFactory.getLogger(PriceUpdateService.class);
 
+    public void ValidityChecksForProductId(String productId) {
+        for(int i=0;i<productId.length();i++) {
+            char ch = productId.charAt(i);
+            if(ch >= 'a' && ch<='z' || (ch>='0' && ch<='9') || ch=='_') {
+                continue;
+            } else {
+                throw new IllegalArgumentException("productId can contain only alphanumeric characters and underscores");
+            }
+        }
+    }
+
     public ResponseEntity<FinalMessage> priceUpdate(List<String> productIds, Double delta) {
+        for(String productId : productIds) {
+            ValidityChecksForProductId(productId);
+        }
         try {
             PriceUpdateRequest priceUpdateRequest = new PriceUpdateRequest();
             List<String> newList = new ArrayList<>();
