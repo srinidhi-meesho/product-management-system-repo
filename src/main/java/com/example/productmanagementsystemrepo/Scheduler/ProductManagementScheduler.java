@@ -29,7 +29,7 @@ public class ProductManagementScheduler {
         this.producer = producer;
     }
 
-    @Scheduled(cron = "0 0 0 7 * *")
+    @Scheduled(cron = "0 */59 * * * *")
     public void LatestPriceUpdate() {
         log.info("cron started");
         LocalDateTime now = LocalDateTime.now();

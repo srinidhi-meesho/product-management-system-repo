@@ -16,7 +16,4 @@ public class PriceRequest {
 
     private Double delta;
 
-    private LocalDateTime createdAt;
-
-    private  LocalDateTime updatedAt;
 }

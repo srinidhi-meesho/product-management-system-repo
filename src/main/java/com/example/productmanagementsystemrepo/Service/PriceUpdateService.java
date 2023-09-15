@@ -44,8 +44,8 @@ public class PriceUpdateService {
             return new ResponseEntity<>(new FinalMessage("SUCCESS","ProductId list & delta added successfully"), HttpStatus.CREATED);
         }catch(Exception e) {
             log.error("error in price update: {}", e.getMessage());
+            return new ResponseEntity<>(new FinalMessage("FAILED","Addition of ProductId list & delta failed"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(new FinalMessage("FAILED","Addition of ProductId list & delta failed"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -58,7 +58,7 @@ public class PriceUpdateService {
                meeshoProducts.setPrice(meeshoProducts.getPrice()+delta);
                productDb.save(meeshoProducts);
 //            logger.info("price update for the given productId {} updated sucessfully", productId);
-               log.info("price update for the given productId {} updated sucessfully", productId);
+               log.info("price update for the given productId {} updated successfully", productId);
            }catch (Exception e) {
                log.error("price updation failed for productId: {},{}", productId, e.getMessage());
            }

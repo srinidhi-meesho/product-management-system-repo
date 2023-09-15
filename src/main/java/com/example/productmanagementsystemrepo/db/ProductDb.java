@@ -6,6 +6,7 @@ import com.example.productmanagementsystemrepo.Requests.ProductRequests.ProductR
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -31,11 +32,11 @@ public class ProductDb {
         products.setSupplierId(product.getSupplierId());
         products.setName(product.getName());
         products.setPrice(product.getPrice());
-        products.setCreatedAt(product.getCreatedAt());
-        products.setUpdatedAt(product.getUpdatedAt());
         products.setDiscount(product.getDiscount());
         products.setImageUrl(product.getImageUrl());
         products.setInventory(product.getInventory());
+        products.setCreatedAt(LocalDateTime.now());
+        products.setUpdatedAt(LocalDateTime.now());
         productRepository.save(products);
     }
     public void save(MeeshoProducts products) {

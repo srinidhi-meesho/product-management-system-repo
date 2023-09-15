@@ -34,15 +34,18 @@ public class MeeshoProducts {
     @Positive(message = "price can't be negative")
     @DecimalMin(value = "50.0", message = "minimum value of price should be 50.0")
     @DecimalMax(value = "2000.0", message = "maximum value of price is 2000.0")
+    @NotNull(message = "price is required")
     @Column(name = "price")
     private Double price;
     @Getter
     @Min(value = 0, message = "minimum value of discount is 0")
     @Max(value = 30, message = "maximum value of discount is 30")
     @Column(name = "discount")
+    @Positive(message = "discount can't be negative")
     private Integer discount;
     @Getter
     @Column(name = "inventory")
+    @Positive(message = "inventory can't be negative")
     private Integer inventory;
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

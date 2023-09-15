@@ -21,8 +21,6 @@ public class PriceDb {
             PriceRequest pricereq = new PriceRequest();
             pricereq.setProductIdList(request.getProductIdList());
             pricereq.setDelta(request.getDelta());
-            pricereq.setUpdatedAt(request.getUpdatedAt());
-            pricereq.setCreatedAt(request.getCreatedAt());
             pricereq.setId(request.getId());
             priceRequests.add(pricereq);
         }
@@ -35,8 +33,8 @@ public class PriceDb {
             priceUpdateRequest.setProductIdList(requests.getProductIdList());
             priceUpdateRequest.setDelta(requests.getDelta());
             priceUpdateRequest.setId(requests.getId());
-            priceUpdateRequest.setUpdatedAt(requests.getUpdatedAt());
-            priceUpdateRequest.setCreatedAt(requests.getCreatedAt());
+            priceUpdateRequest.setUpdatedAt(LocalDateTime.now());
+            priceUpdateRequest.setCreatedAt(LocalDateTime.now());
             priceUpdateRequest.setId(requests.getId());
             priceUpdateRequests.add(priceUpdateRequest);
         }
